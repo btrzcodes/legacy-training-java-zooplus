@@ -10,4 +10,5 @@ This kata is composed by several iterations of 10 minutes. At the beginning of e
 
 ## Inspired by:
 https://es.slideshare.net/chrismdp/lean-code
+
 Chris Parsons @chrismdp
