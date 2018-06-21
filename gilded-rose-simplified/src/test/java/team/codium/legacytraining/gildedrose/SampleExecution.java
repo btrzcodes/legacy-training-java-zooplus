@@ -1,8 +1,5 @@
 package team.codium.legacytraining.gildedrose;
 
-import team.codium.legacytraining.gildedrose.GildedRose;
-import team.codium.legacytraining.gildedrose.Item;
-
 public class SampleExecution {
     public static void main(String[] args) {
         Item[] items = new Item[]{

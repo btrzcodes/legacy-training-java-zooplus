@@ -17,7 +17,10 @@ public class GildedRoseTest {
 
         SampleExecution.main(new String[]{});
 
-        assertFilesAreEqual("src/test/resources/original.log", "src/test/resources/current.log");
+        assertFilesAreEqual(
+                "src/test/resources/original.log",
+                "src/test/resources/current.log"
+        );
     }
 
     private void changeSystemOutTo(String filePath) throws FileNotFoundException {
