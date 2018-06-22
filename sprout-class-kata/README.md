@@ -7,7 +7,7 @@ We currently have system that generates static web pages for our website. One of
 ### Business requirements
 They have hired us to add new features to the Users Biography page:
 
-1) Score label
+#### 1) Score label
  
 ![New Score label](./doc/scoreLabel.png)
 
@@ -26,20 +26,20 @@ The list of keywords that we are interested in is:
 - social
 
 
-2) Localization label
+#### 2) Localization label
 
 ![New Localization label](./doc/localizationLabel.png)
 
 Our company has 5 offices around Spain: Barcelona, Madrid, Granada, Vigo and Palma de Mallorca.
 We want to display a label with the name of the city if it appears in the biography.
 
-3) Special label "Community manager"
+#### 3) Special label "Community manager"
 
 ![New Special label](./doc/specialLabel.png)
 
 We want to display a special label titled "Community manager" if this text appears in the bio.
 
-4) Bonus task 
+#### 4) Bonus task 
 
 if we end up the development and still have more time they have asked us to add an extra feature that will be gladly rewarded.
 
@@ -47,7 +47,7 @@ In this bonus feature we should create a backup file apart from the automatic ge
 
 ## Goals
 - **Practice the sprout class technique** to avoid adding more complexity to the current classes
-- **Practice the wrap method/class technique** in the bonus task.
+- **Practice the wrap method/class technique** in the bonus task to encapsulate the current logic and add a the new feature
 
 ## Authors
 Luis Rovirosa [@luisrovirosa](https://www.twitter.com/luisrovirosa)

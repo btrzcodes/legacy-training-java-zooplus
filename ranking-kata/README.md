@@ -2,24 +2,24 @@
 
 ## Description:
 ### Context
-We have develop an online computer game. Currently we are logging all the games of each player.
+We have released an online computer game with some success. We log all played game results of each player.
 
 ### Business requirements
-Our players are demanding a ranking by country that could be integrated in other systems and we think that is a good idea.
+Our players have requested a ranking by country that they would like to integrate in other systems. We think that is a good idea and that feature will increase our gamers engagement, one of our key metrics.
 
-We only want to respond the best 10 players for each of our 3 countries where whe have a lot of players: Spain, France and United Kingdom.
+For that new feature we only want to return the best 10 players for each of our 3 top countries where we have a lot of players: Spain, France and United Kingdom.
 
 ### Architecture requirements
-We don't want to couple with the legacy system because it's done using an obsolete language/framework with security issues.
+We don't want to couple with the legacy system because it's done using an obsolete language/framework with a security issue.
 
-We know that exists something call Anticorruption Layer, that allows us to decouple our new model with the old model. 
+We know that exist something called Anticorruption Layer, that allows us to decouple our new model from the old one. 
 
-We would like to model our business with Players and Rankings.
+We would like to model our new business model with Players and Rankings.
 ![New information system](./doc/newModel.png)
 
-DashboardAction is the service the class that we want to be consumed from the API Rest.
+DashboardAction is the service class that will be consumed from the API Rest.
 
-RankingRepository is how we want to retrieve the users inside DashboardAction.
+RankingRepository will be used by DashboardAction to retrieve the users from the Anticurruption Layer.
 
 ### Legacy system
 ![Old information system](./doc/oldModel.png)
@@ -27,7 +27,7 @@ RankingRepository is how we want to retrieve the users inside DashboardAction.
 ### Technical details
 In our new model we want to use an ISO Standard for the country id's: [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)
 
-We want the output as string in JSON format.
+We want the return an output as string in JSON format.
 
 ### Sample of output
 
@@ -53,7 +53,7 @@ We want the output as string in JSON format.
 
 ### How to setup the legacy system
 
-#### Use the provided by [Codium](https://www.codium.team)
+#### Use the DB provided by [Codium](https://www.codium.team)
 
 #### Build your own database
 
@@ -70,7 +70,7 @@ The mysql connection information is:
 - password: *ranking*
 
 
-## Goals:
+## Goals
 - Understand how to decouple a legacy system from a new one.
 - The importance of a good model and frontiers.
 
