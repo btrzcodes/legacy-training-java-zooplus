@@ -1,9 +1,9 @@
 # Weather kata
 
 ## Description:
-This kata has a simple code that request the weather prediction to Metaweather.
+This kata has a code that request the weather prediction from Metaweather.
 
-We want to be able to use the code with a simple interface called [Forecast](src/main/java/Forecast.java)
+We want to be able to use the code with a simple interface called [ForecastService](./src/main/java/ForecastService.java)
 
 We also want to decouple our code from the existing dependencies.
 
