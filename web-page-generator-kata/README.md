@@ -1,4 +1,4 @@
-# Sprout class Kata
+# Web Page Generator Kata
 
 ## Description:
 ### Context
