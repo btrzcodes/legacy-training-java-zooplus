@@ -50,6 +50,10 @@ A possible design could be:
 
 We want to display a special label titled "Community manager" if this text appears in the bio.
 
+```html
+  <span class="badge badge-pill badge-danger">Community manager</span>
+```
+
 #### 4) Bonus task 
 
 if we end up the development and still have more time they have asked us to add an extra feature that will be gladly rewarded.
