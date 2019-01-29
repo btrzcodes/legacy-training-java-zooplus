@@ -1,13 +1,16 @@
 # Goal
 Be able to test printCurrentDate function without changing the method signature.
-1.- Decouple the code
-2.- Test the code with doubles from a library.
-3.- Test the code with doubles created by you.
+
+1. Decouple the code
+2. Test the code with doubles from a library.
+3. Test the code with doubles created by you.
 # Code to test
 	public void printCurrentDate() {
-		System.out.println(new Date());
+	    System.out.println(new Date());
 	}
 # Learnings
+Detect coupled code and decouple it.
+
 How to build a Mock and Stub manually.
 
 How to use Mockito to generate the doubles.
@@ -19,8 +22,7 @@ How to use Mockito to generate the doubles.
     @Test
     public void should_send_an_email() {
         EmailSender sender = mock(EmailSender.class);
-        UserRegistration userRegistration =
-                new UserRegistration(sender);
+        UserRegistration userRegistration = new UserRegistration(sender);
 
         userRegistration.register();
 
@@ -31,14 +33,16 @@ How to use Mockito to generate the doubles.
 
     @Test
     public void should_success_when_password_is_valid() {
-        PasswordValidator passwordValidator =
-                    mock(PasswordValidator.class);
-        when(passwordValidator.isValid(‘validPassword’))
-                                 .thenReturn(true);
-        UserRegistration userRegistration =
-                    new UserRegistration(passwordValidator);
+        PasswordValidator passwordValidator = mock(PasswordValidator.class);
+        when(passwordValidator.isValid(‘validPassword’)).thenReturn(true);
+        UserRegistration userRegistration = new UserRegistration(passwordValidator);
 
         bool success = userRegistration.register();
 
         assertTrue(success);
     }
+
+## Authors
+Luis Rovirosa [@luisrovirosa](https://www.twitter.com/luisrovirosa)
+
+Jordi Anguela [@jordianguela](https://www.twitter.com/jordianguela)
