@@ -34,6 +34,7 @@ public class UserRegistrationControllerTest {
     public void should_success_when_everything_is_valid() throws Exception {
         String arguments = "?name=Codium&email=my@email.com&password=myPass_123123";
         String url = "http://localhost:" + this.port + "/users" + arguments;
+
         ResponseEntity<User> entity = this.testRestTemplate.postForEntity(url, null, User.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -42,9 +43,9 @@ public class UserRegistrationControllerTest {
     public void should_returns_a_user_with_the_email_when_everything_is_valid() throws Exception {
         String arguments = "?name=Codium&email=my@email.com&password=myPass_123123";
         String url = "http://localhost:" + this.port + "/users" + arguments;
+
         ResponseEntity<User> entity = this.testRestTemplate.postForEntity(url, null, User.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody().getEmail()).isEqualTo("my@email.com");
     }
 
@@ -52,9 +53,9 @@ public class UserRegistrationControllerTest {
     public void should_returns_a_user_with_the_name_when_everything_is_valid() throws Exception {
         String arguments = "?name=Codium&email=my@email.com&password=myPass_123123";
         String url = "http://localhost:" + this.port + "/users" + arguments;
+
         ResponseEntity<User> entity = this.testRestTemplate.postForEntity(url, null, User.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody().getName()).isEqualTo("Codium");
     }
 
@@ -62,6 +63,7 @@ public class UserRegistrationControllerTest {
     public void should_fail_when_password_is_short() throws Exception {
         String arguments = "?name=Codium&email=my@email.com&password=myPass_";
         String url = "http://localhost:" + this.port + "/users" + arguments;
+
         ResponseEntity<String> entity = this.testRestTemplate.postForEntity(url, null, String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
@@ -85,9 +87,9 @@ public class UserRegistrationControllerTest {
     public void should_generate_a_random_id_when_everything_is_valid() throws Exception {
         String arguments = "?name=Codium&email=my@email.com&password=myPass_123123";
         String url = "http://localhost:" + this.port + "/users" + arguments;
+
         ResponseEntity<User> entity = this.testRestTemplate.postForEntity(url, null, User.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(entity.getBody().getId()).isNotEqualTo(1);
     }
 
