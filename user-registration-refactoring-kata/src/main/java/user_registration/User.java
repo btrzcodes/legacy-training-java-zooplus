@@ -1,10 +1,14 @@
 package user_registration;
 
 public class User {
-    private final int id;
-    private final String name;
-    private final String email;
-    private final String password;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+
+    public User() {
+        super();
+    }
 
     public User(int id, String name, String email, String password) {
         this.id = id;
