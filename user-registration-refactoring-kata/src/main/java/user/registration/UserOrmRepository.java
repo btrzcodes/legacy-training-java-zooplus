@@ -1,4 +1,4 @@
-package user_registration;
+package user.registration;
 
 import java.util.HashMap;
 

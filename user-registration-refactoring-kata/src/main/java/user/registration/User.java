@@ -1,4 +1,4 @@
-package user_registration;
+package user.registration;
 
 public class User {
     private int id;

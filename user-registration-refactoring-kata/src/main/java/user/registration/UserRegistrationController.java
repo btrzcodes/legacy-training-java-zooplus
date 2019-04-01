@@ -1,4 +1,4 @@
-package user_registration;
+package user.registration;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

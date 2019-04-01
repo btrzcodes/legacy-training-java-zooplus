@@ -1,4 +1,4 @@
-package user_registration;
+package user.registration;
 
 import org.junit.Before;
 import org.junit.Test;
