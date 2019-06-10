@@ -1,18 +1,13 @@
 # Weather kata
 
-## Description:
+# Weather kata
+We cannot control the weather but we can predict it.
+
 This kata has a code that request the weather prediction from Metaweather.
 
-We want to be able to use the code with a simple interface called [ForecastService](./src/main/java/ForecastService.java)
-
-We also want to decouple our code from the existing dependencies.
-
-There is a bad test suite that simplify understand how our code actually works. 
-
-## Goals:
-- How to adapt the current interface to the expected one.
-- How to decouple.
-- How to define an interface respecting the Dependency Inversion Principle.
+## Goal
+- Test coupled code.
+- Remove the external dependency when testing in order to make the tests repeatable and fast
 
 ## Authors
 Luis Rovirosa [@luisrovirosa](https://www.twitter.com/luisrovirosa)
