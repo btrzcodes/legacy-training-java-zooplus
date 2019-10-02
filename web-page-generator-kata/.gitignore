@@ -1,4 +1,14 @@
-.idea
 html/*
 !html/assets
-target
+
+*.class
+target/
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# IntelliJ files
+*.iml
+.idea/
