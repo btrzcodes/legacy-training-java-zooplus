@@ -20,8 +20,22 @@ You can to run [PIT mutation testing](http://pitest.org/) in order to know if al
 
 
 ## Goals:
-- Write unit tests test that validates the business requirements
-- Use the characterization test technique and code coverage to identify the Backstage passes requirements.
+- Write unit tests that validate the business requirements
+- Use the characterization test technique 
+- Use the code coverage to identify the Backstage passes requirements and try to reach 100% coverage.
+- As code coverage is not enough, use mutation testing to find extra requirements writing new tests.
+
+Mutation testing
+======================================
+
+How to run mutation testing:
+
+    mvn org.pitest:pitest-maven:mutationCoverage
+    
+
+Reports are generated under the folder: target/pit-reports
+
+Open the index.html file in a browser.
 
 ## Inspired by:
 https://github.com/emilybache/GildedRose-Refactoring-Kata/
