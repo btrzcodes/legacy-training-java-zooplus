@@ -10,7 +10,7 @@ public class WeatherKataTest {
 
     public static final int ONE_DAY = 1000 * 60 * 60 * 24 * 1;
 
-    // https://www.metaweather.com/api/location/766273/
+    // https://www.metaweather.com/api/location/753692/  // Barcelona
     @Test
     public void xxx() {
         assertTrue(true);

@@ -1,6 +1,4 @@
 # Weather kata
-
-# Weather kata
 We cannot control the weather but we can predict it.
 
 This kata has a code that request the weather prediction from Metaweather.
