@@ -37,6 +37,12 @@ Reports are generated under the folder: target/pit-reports
 
 Open the index.html file in a browser.
 
+You can install Pitest in either Eclipse (Pitclipse) and IntellyJ (PITEst)
+
+https://marketplace.eclipse.org/content/pitclipse
+
+https://plugins.jetbrains.com/plugin/7119-pit-mutation-testing-idea-plugin
+
 ## Inspired by:
 https://github.com/emilybache/GildedRose-Refactoring-Kata/
 
