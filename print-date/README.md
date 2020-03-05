@@ -1,19 +1,18 @@
 # Goal
 Be able to test printCurrentDate function without changing the method signature.
 
-1. Decouple the code
-2. Test the code with doubles from a library.
-3. Test the code with doubles created by you.
+1. Test the code with doubles using a library.
+2. Test the code with doubles created by you.
 # Code to test
 	public void printCurrentDate() {
-	    System.out.println(new Date());
+		String line = calendar.today().toString();
+		printer.printLine(line);
 	}
 # Learnings
-Detect coupled code and decouple it.
-
-How to build a Mock and Stub manually.
 
 How to use Mockito to generate the doubles.
+
+How to build a Mock and Stub manually.
 
 ## Tools
 [Mockito](http://mockito.org/)

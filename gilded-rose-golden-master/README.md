@@ -1,13 +1,13 @@
 # Gilded Rose Golden Master
 
 ## Description:
-This is a legacy code kata simulates that implements the Trivia game.
+This is a legacy code kata simulates that implements the xx.
 
 The code is small but it has a lot of code smells and sometimes it's difficult to understand.
  
 ## Goals:
-- Create a Golden Master piece to ensure the the Trivia game continues working as before.
-- Optionally you can refactor the code helped with the Golden Master created previously.
+- Write a code to generate an output that you need to be sure the code behaviour does not change.
+- Write an script to automate the test execution.
 
 ## Inspired by:
 https://github.com/emilybache/GildedRose-Refactoring-Kata/
