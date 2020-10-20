@@ -3,15 +3,14 @@ default:
 	@printf "$$HELP"
 
 run:
-	mvn compile
-	mvn exec:java -Dexec.mainClass="team.codium.legacytraining.Main"
+	mvn compile exec:java -Dexec.mainClass="team.codium.legacytraining.Main"
 	@echo "Webpage generated at html/users.html"
 
 docker-build:
 	docker build . -t java-with-make
 
 docker-run:
-	docker run -v ${PWD}:/opt/project -v ${PWD}/target/maven-cache:/root/.m2 -w /opt/project java-with-make make run
+	docker run --rm -v ${PWD}:/opt/project -v ${PWD}/target/maven-cache:/root/.m2 -w /opt/project java-with-make make run
 
 define HELP
 # Local commands
