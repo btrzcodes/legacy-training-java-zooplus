@@ -1,5 +1,16 @@
 # Web Page Generator Kata
 
+## How to run it
+
+### Generate the docker image
+The first time you need to build the docker image
+
+    make docker-build
+    
+### Compile and run the program
+
+    make docker-run
+
 ## Description:
 ### Context
 We currently have system that generates static web pages for our website. One of those pages is the Users Biography page where it is displayed valuable information about our registered users.
