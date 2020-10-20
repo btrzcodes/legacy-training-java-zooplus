@@ -1,20 +1,11 @@
-.PHONY: default run docker-build docker-run
-default:
-	@printf "$$HELP"
+.PHONY: default test docker-build docker-test
+default: docker-test
 
 test:
 	mvn test clean
 
+docker-build:
+	docker build .. -t codium-legacytraining
+
 docker-test:
-	docker run --rm -v ${PWD}:/opt/project -v ${PWD}/../.m2:/root/.m2 -w /opt/project maven:3.6-openjdk-8 mvn test clean
-
-define HELP
-# Local commands
-	- make test\tRun locally using java 8
-# Docker commands
-	- make docker-test\tRun inside docker with Java 8
- Please execute "make <command>". Example make help
-
-endef
-
-export HELP
+	docker run --rm -v ${PWD}:/opt/project -v ${PWD}/../.m2:/root/.m2 -w /opt/project codium-legacytraining make test
