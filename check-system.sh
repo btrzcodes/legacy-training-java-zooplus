@@ -22,6 +22,7 @@ function validateDocker() {
     if [ $? -ne 0 ]; then
       echo "Error"
       echo "Are you sure that you have docker running?"
+      echo "If you don't want to install docker, you can open tennis-refactoring-kata and run the tests using your IDE."
       exit -1
     else
       echo "Ok"
@@ -54,6 +55,7 @@ function validateMake() {
     if [ $? -ne 0 ]; then
       echo "Error"
       echo "Do you have make installed?"
+      echo "If you don't want to install make, you can open tennis-refactoring-kata and run the tests using your IDE."
       exit -1
     else
       echo "Ok"
