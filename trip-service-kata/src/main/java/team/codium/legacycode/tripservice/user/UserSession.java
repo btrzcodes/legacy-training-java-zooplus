@@ -10,7 +10,7 @@ public class UserSession {
 		userSession = new UserSession(new User()){
 			public User getLoggedUser() {
 				throw new CollaboratorCallException(
-						"UserSession.getLoggedUser() should not be called in an unit test");
+						"UserSession.getInstance() should not be called in an unit test");
 			}
 		};
 	}
