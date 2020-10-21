@@ -12,7 +12,8 @@ public class WeatherKataTest {
 
     // https://www.metaweather.com/api/location/753692/  // Barcelona
     @Test
-    public void xxx() {
+    public void xxx() throws IOException {
+        new Forecast().predict("Madrid", new Date(), false);
         assertTrue(true);
     }
 }

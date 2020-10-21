@@ -66,7 +66,7 @@ validateKata web-page-generator-kata "cd web-page-generator-kata" "make docker-r
 validateKata tennis-refactoring-kata "cd tennis-refactoring-kata" "make docker-test"
 validateKata user-registration-refactoring-kata "cd user-registration-refactoring-kata" "make docker-test"
 validateKata gilded-rose-characterization-testing "cd gilded-rose-characterization-testing" "make docker-coverage" "make docker-mutation"
-#validateKata weather-kata "cd weather-kata" "make docker-test make docker-coverage"
+validateKata weather-kata "cd weather-kata" "make docker-test" "make docker-coverage"
 #validateKata trip-service-kata "cd trip-service-kata" "make docker-test"
 #validateKata trivia-golden-master "cd trivia-golden-master" "make docker-run"
 #validateKata gilded-rose-golden-master "cd gilded-rose-golden-master" "make docker-run"
