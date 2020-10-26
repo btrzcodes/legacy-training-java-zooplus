@@ -1,7 +1,5 @@
 package team.codium.legacytraining;
 
-import java.util.Locale;
-
 public class User {
 
     private String name;

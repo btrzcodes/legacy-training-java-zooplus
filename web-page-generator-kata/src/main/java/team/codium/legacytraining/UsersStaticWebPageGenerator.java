@@ -3,10 +3,14 @@ package team.codium.legacytraining;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersStaticWebPageGenerator {
+
+
     public void generateFile(List<User> users) {
+
         // save resulting static html page
         FileWriter fileWriter = null;
         try {
@@ -45,6 +49,7 @@ public class UsersStaticWebPageGenerator {
             printWriter.println("<main role=\"main\" class=\"inner cover\">");
             for(User user: users) {
                 printWriter.printf("<h1 class=\"cover-heading\">%s</h1>\n", user.getName());
+                printWriter.printf(printScoreLabel(user.getBiography()));
                 printWriter.printf("<p class=\"lead\">%s</p>\n", user.getBiography());
             }
             printWriter.println("</main>");
@@ -69,5 +74,27 @@ public class UsersStaticWebPageGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String printScoreLabel(String biography) {
+        ArrayList<String> keywords = new ArrayList<>();
+        keywords.add("edición");
+        keywords.add("sociedad");
+        keywords.add("mundo");
+        keywords.add("libro");
+        keywords.add("texto");
+        keywords.add("revista");
+        keywords.add("valores");
+        keywords.add("educación");
+        keywords.add("teatro");
+        keywords.add("social");
+
+        int count = 0;
+        for (String elem: keywords) {
+            if (biography.contains(elem))
+                count++;
+        }
+
+        return String.format("<button type=\"button\" class=\"btn btn-warning\">Score <span class=\"badge badge-light\">%s</span><span class=\"sr-only\">keywords found</span></button>\n", count);
     }
 }
