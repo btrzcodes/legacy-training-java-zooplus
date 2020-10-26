@@ -1,8 +1,8 @@
 
 public class TennisGame {
     
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private int scorePlayer1 = 0;
+    private int scorePlayer2 = 0;
     private String player1Name;
     private String player2Name;
     private String[] points = {"Love","Fifteen","Thirty","Forty"};
@@ -14,45 +14,49 @@ public class TennisGame {
 
     public void wonPoint(String playerName) {
         if (playerName == "player1")
-            m_score1 += 1;
+            scorePlayer1 += 1;
         else
-            m_score2 += 1;
+            scorePlayer2 += 1;
     }
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
-        {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
-        }
-        else if (m_score1>=4 || m_score2>=4)
-        {
-            int minusResult = m_score1-m_score2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
+        if (isEqualPoints(scorePlayer1, scorePlayer2))
+            score = calculateEqualScore();
+        else if (isWinnerOrAdvantage())
+            score = calculateAdvantageWinner();
         else
-        {
-            score = points[m_score1]+"-"+points[m_score2];
-        }
+            score = calculateNotEqualScore();
+        return score;
+    }
+
+    private boolean isWinnerOrAdvantage() {
+        return scorePlayer1 >= 4 || scorePlayer2 >= 4;
+    }
+
+    private boolean isEqualPoints(int m_score1, int m_score2) {
+        return m_score1 == m_score2;
+    }
+
+    private String calculateAdvantageWinner() {
+        String score;
+        int minusResult = scorePlayer1 - scorePlayer2;
+        String winOrAdvantage = Math.abs(minusResult)>=2?"Win for ":"Advantage ";
+        String candidate = minusResult>0?"player1":"player2";
+        score = winOrAdvantage + candidate;
+        return score;
+    }
+
+    private String calculateNotEqualScore() {
+        return points[scorePlayer1] + "-" + points[scorePlayer2];
+    }
+
+    private String calculateEqualScore() {
+        String score;
+        if(scorePlayer1 <= 2)
+            score = points[scorePlayer1]+"-All";
+        else
+            score = "Deuce";
         return score;
     }
 }
