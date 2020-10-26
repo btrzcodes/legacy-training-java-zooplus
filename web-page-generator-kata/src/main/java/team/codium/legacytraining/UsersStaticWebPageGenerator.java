@@ -6,6 +6,10 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class UsersStaticWebPageGenerator {
+
+    private String[] keywords = {"edición", "sociedad", "mundo", "libro", "texto", "revista", "valores", "educación", "teatro", "social"};
+    private String[] cities = {"Barcelona", "Madrid", "Granada", "Vigo", "Palma de Mallorca"};
+
     public void generateFile(List<User> users) {
         // save resulting static html page
         FileWriter fileWriter = null;
@@ -45,6 +49,7 @@ public class UsersStaticWebPageGenerator {
             printWriter.println("<main role=\"main\" class=\"inner cover\">");
             for(User user: users) {
                 printWriter.printf("<h1 class=\"cover-heading\">%s</h1>\n", user.getName());
+                printWriter.printf(getHtmlLabels(user.getBiography()));
                 printWriter.printf("<p class=\"lead\">%s</p>\n", user.getBiography());
             }
             printWriter.println("</main>");
@@ -69,5 +74,37 @@ public class UsersStaticWebPageGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getHtmlLabels(String biography) {
+        return getHtmlScoreLabel(biography) +
+                getHtmlCityLabel(biography);
+    }
+
+    public String getHtmlCityLabel(String biography) {
+        String htmlCities = "";
+        for (String currentCity : cities) {
+            if(biography.contains(currentCity)) {
+                htmlCities += "<span class=\"badge badge-pill badge-info\">" + currentCity + "</span>\n";
+            }
+        }
+        return htmlCities;
+    }
+
+    public int getScore(String biography) {
+
+        int score = 0;
+
+        for (String keyword : keywords) {
+            if(biography.contains(keyword)) {
+                score += 1;
+            }
+        }
+
+        return score;
+    }
+
+    public String getHtmlScoreLabel(String biography) {
+        return "<button type=\"button\" class=\"btn btn-warning\">Score <span class=\"badge badge-light\">" + getScore(biography) + "</span><span class=\"sr-only\">keywords found</span></button>\n";
     }
 }
