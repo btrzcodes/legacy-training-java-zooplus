@@ -46,6 +46,7 @@ public class UsersStaticWebPageGenerator {
             for(User user: users) {
                 printWriter.printf("<h1 class=\"cover-heading\">%s</h1>\n", user.getName());
                 printWriter.printf("<p class=\"lead\">%s</p>\n", user.getBiography());
+                showScore(printWriter, user);
             }
             printWriter.println("</main>");
 
@@ -69,5 +70,9 @@ public class UsersStaticWebPageGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showScore(PrintWriter printWriter, User user) {
+        printWriter.printf("<button type=\"button\" class=\"btn btn-warning\">Score <span class=\"badge badge-light\">%s</span><span class=\"sr-only\">keywords found</span></button>", user.getScore());
     }
 }
