@@ -13,10 +13,6 @@ public class UserRegistrationController {
 	public static UserOrmRepository orm = new UserOrmRepository();
 	private final RegisterUseCase registerUseCase = new RegisterUseCase();
 
-	private String name;
-	private String password;
-	private String email;
-
 	@PostMapping("/users")
 	public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
 		try {
