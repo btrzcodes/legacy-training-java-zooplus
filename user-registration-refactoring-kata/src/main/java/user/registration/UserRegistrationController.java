@@ -17,25 +17,19 @@ import java.util.Random;
 @RestController
 public class UserRegistrationController {
     public static UserOrmRepository orm = new UserOrmRepository();
+    public UserRegistration validator = new UserRegistration();
 
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
 
-        if (request.getParameter("password").length() <= 8 || !request.getParameter("password").contains("_")) {
-            return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
+        User user;
+
+        try {
+            user = validator.register(orm, request);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        if (orm.findByEmail(request.getParameter("email")) != null) {
-            return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
-        }
-
-        User user = new User(
-                new Random().nextInt(),
-                request.getParameter("name"),
-                request.getParameter("email"),
-                request.getParameter("password")
-        );
-        orm.save(user);
 
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
