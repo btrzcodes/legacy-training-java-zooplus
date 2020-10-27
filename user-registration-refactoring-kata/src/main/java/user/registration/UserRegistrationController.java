@@ -21,22 +21,19 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
 
-        if (request.getParameter("password").length() <= 8 || !request.getParameter("password").contains("_")) {
-            return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
+        InsertUserService ius = new InsertUserService(orm);
+        try {
+            User user = ius.insertUser(request);
+
+            sendConfirmationEmail(request);
+
+            return ResponseEntity.ok(user);
+        } catch ( IllegalArgumentException iae){
+            return new ResponseEntity(iae.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
 
-        if (orm.findByEmail(request.getParameter("email")) != null) {
-            return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
-        }
-
-        User user = new User(
-                new Random().nextInt(),
-                request.getParameter("name"),
-                request.getParameter("email"),
-                request.getParameter("password")
-        );
-        orm.save(user);
-
+    private void sendConfirmationEmail(HttpServletRequest request) throws MessagingException {
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
@@ -56,7 +53,7 @@ public class UserRegistrationController {
         message.setContent(multipart);
         // If a proper SMTP server is configured, this line could be uncommented
         // Transport.send(message);
-
-        return ResponseEntity.ok(user);
     }
+
+
 }
