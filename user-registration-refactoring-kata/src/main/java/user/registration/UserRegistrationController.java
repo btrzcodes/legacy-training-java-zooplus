@@ -16,44 +16,31 @@ import java.util.Random;
 
 @RestController
 public class UserRegistrationController {
-    public static UserOrmRepository orm = new UserOrmRepository();
+    public static Repository<User> orm = new UserOrmRepository();
 
     @PostMapping("/users")
-    public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
+    public ResponseEntity createUser(HttpServletRequest request) {
 
-        InsertUserService ius = new InsertUserService(orm);
+        EmailService emailService = new EmailService();
+        InsertUserService ius = new InsertUserService(orm, emailService);
+
         try {
-            User user = ius.insertUser(request);
+            String userName = request.getParameter("name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
 
-            sendConfirmationEmail(request);
+            User user = ius.insertUser(userName, email, password);
 
             return ResponseEntity.ok(user);
-        } catch ( IllegalArgumentException iae){
-            return new ResponseEntity(iae.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch ( InvalidPasswordException | DuplicatedEmailException ipe){
+            return new ResponseEntity(ipe.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (MessagingException ex) {
+            return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private void sendConfirmationEmail(HttpServletRequest request) throws MessagingException {
-        Properties prop = new Properties();
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smtpUsername", "smtpPassword");
-            }
-        });
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("noreply@codium.team"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getParameter("email")));
-        message.setSubject("Welcome to Codium");
-        String msg = "This is the confirmation email";
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-        // If a proper SMTP server is configured, this line could be uncommented
-        // Transport.send(message);
-    }
+
 
 
 }

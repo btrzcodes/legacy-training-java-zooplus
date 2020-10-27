@@ -2,7 +2,8 @@ package user.registration;
 
 import java.util.HashMap;
 
-public class UserOrmRepository {
+public class UserOrmRepository implements Repository<User> {
+
     public HashMap<String, User> users = new HashMap<>();
 
     public void save(User user) {

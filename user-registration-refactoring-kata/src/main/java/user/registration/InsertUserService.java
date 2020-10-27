@@ -1,40 +1,43 @@
 package user.registration;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.mail.MessagingException;
 import java.util.Random;
 
 public class InsertUserService {
-    private UserOrmRepository orm;
-    public InsertUserService(UserOrmRepository orm) {
+
+    private Repository<User> orm;
+    private EmailService emailService;
+
+    public InsertUserService(Repository<User> orm, EmailService emailService) {
         this.orm = orm;
+        this.emailService = emailService;
     }
 
-    public User insertUser(HttpServletRequest request) throws IllegalArgumentException{
-        validateEmail(request);
-        validatePassword(request);
+    public User insertUser(String userName, String email, String password) throws DuplicatedEmailException, InvalidPasswordException, MessagingException {
+        validateEmail(email);
+        validatePassword(password);
         User user = new User(
                 new Random().nextInt(),
-                request.getParameter("name"),
-                request.getParameter("email"),
-                request.getParameter("password")
+                userName,
+                email,
+                password
         );
         orm.save(user);
+
+        emailService.sendConfirmationEmail(email);
+
         return user;
     }
 
-    private void validateEmail(HttpServletRequest request) throws IllegalArgumentException{
-        if (orm.findByEmail(request.getParameter("email")) != null) {
-            throw new IllegalArgumentException("The email is already in use");
-          //  return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
+    private void validateEmail(String email) throws DuplicatedEmailException {
+        if (orm.findByEmail(email) != null) {
+            throw new DuplicatedEmailException("The email is already in use");
         }
     }
 
-    private void validatePassword(HttpServletRequest request) throws IllegalArgumentException{
-        if (request.getParameter("password").length() <= 8 || !request.getParameter("password").contains("_")) {
-            throw new IllegalArgumentException("The password is not valid");
+    private void validatePassword(String password) throws InvalidPasswordException {
+        if (password.length() <= 8 || !password.contains("_")) {
+            throw new InvalidPasswordException("The password is not valid");
         }
     }
 }
