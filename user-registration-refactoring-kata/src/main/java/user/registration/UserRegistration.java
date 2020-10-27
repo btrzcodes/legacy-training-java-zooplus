@@ -1,9 +1,5 @@
 package user.registration;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
 public class UserRegistration {
@@ -16,28 +12,33 @@ public class UserRegistration {
         return user != null;
     }
 
-    private void validate(UserOrmRepository orm, HttpServletRequest request) throws Exception {
-        if (isInvalidPassword(request.getParameter("password"))) {
+    private void validate(UserOrmRepository orm, String password, String email) throws Exception {
+        if (isInvalidPassword(password)) {
             throw new Exception("The password is not valid");
         }
 
-        if (isInvalidEmail(orm.findByEmail(request.getParameter("email")))) {
+        if (isInvalidEmail(orm.findByEmail(email))) {
             throw new Exception("The email is already in use");
         }
     }
 
-    public User register(UserOrmRepository orm, HttpServletRequest request) throws Exception {
+    public User register(UserOrmRepository orm, String name, String email, String password) throws Exception {
 
-        validate(orm, request);
+        validate(orm, password, email);
 
-        User user = new User(
-                new Random().nextInt(),
-                request.getParameter("name"),
-                request.getParameter("email"),
-                request.getParameter("password")
-        );
+        User user = buildUser(name, email, password);
         orm.save(user);
 
+        return user;
+    }
+
+    private User buildUser(String name, String email, String password) {
+        User user = new User(
+                new Random().nextInt(),
+                name,
+                email,
+                password
+        );
         return user;
     }
 
