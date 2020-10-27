@@ -18,11 +18,19 @@ import java.util.Random;
 @RestController
 public class UserRegistrationController {
     @PostMapping("/users")
-    public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
+    public ResponseEntity createUser(HttpServletRequest request){
         userRegistrationService userRegistration = new userRegistrationService();
-        String password = request.getParameter("password");
-        String email= request.getParameter("email");
-        String name= request.getParameter("name");
-        return userRegistration.createUser(password,email,name);
+        try{
+            String password = request.getParameter("password");
+            String email= request.getParameter("email");
+            String name= request.getParameter("name");
+            return userRegistration.createUser(password,email,name);
+        } catch(MessagingException error) {
+            return error;
+        } catch (InvalidPasswordException error) {
+            return new ResponseEntity("The password is not valid", HttpStatus.BAD_REQUEST);
+        } catch (InvalidEmailException error) {
+            return new ResponseEntity("The email is already in use", HttpStatus.BAD_REQUEST);
+        }
     }
 }
