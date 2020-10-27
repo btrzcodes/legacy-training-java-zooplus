@@ -27,7 +27,7 @@ public class UserRegistrationControllerTest {
 
     @Before
     public void setup() throws IOException {
-        UserRegistrationController.orm = new UserOrmRepository();
+        userRegistrationService.orm = new UserOrmRepository();
     }
 
     @Test
