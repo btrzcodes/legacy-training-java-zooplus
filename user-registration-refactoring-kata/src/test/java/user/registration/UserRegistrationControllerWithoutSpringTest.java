@@ -17,7 +17,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserRegistrationControllerTest2 {
+public class UserRegistrationControllerWithoutSpringTest {
 
     @LocalServerPort
     private int port;

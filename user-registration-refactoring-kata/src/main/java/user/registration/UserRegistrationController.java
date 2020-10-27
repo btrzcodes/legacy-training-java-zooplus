@@ -4,15 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import user.registration.exceptions.EmailException;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Properties;
-import java.util.Random;
 
 @RestController
 public class UserRegistrationController {
@@ -21,7 +16,7 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) {
 
-        EmailService emailService = new EmailService();
+        EmailSender emailService = new EmailSenderJavaX();
         InsertUserService ius = new InsertUserService(orm, emailService);
 
         try {
@@ -35,7 +30,7 @@ public class UserRegistrationController {
 
         } catch ( InvalidPasswordException | DuplicatedEmailException ipe){
             return new ResponseEntity(ipe.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (MessagingException ex) {
+        } catch (EmailException ex) {
             return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

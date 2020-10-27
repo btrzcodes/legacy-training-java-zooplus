@@ -32,4 +32,8 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public MyEmail generateConfirmationEmail() {
+        return new MyEmail(this.email,"noreply@codium.team","Welcome to Codium","This is the confirmation email");
+    }
 }
