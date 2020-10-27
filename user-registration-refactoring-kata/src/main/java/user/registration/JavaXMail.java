@@ -8,7 +8,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class JavaXMail implements EmailSender {
-    public void sendEmail(String email, String subject, String msg) throws EmailException {
+    public void sendEmail(Email email) throws EmailException {
 
         Properties prop = new Properties();
         Session session = Session.getInstance(prop, new Authenticator() {
@@ -20,10 +20,10 @@ public class JavaXMail implements EmailSender {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("noreply@codium.team"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email.email));
+            message.setSubject(email.subject);
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html");
+            mimeBodyPart.setContent(email.msg, "text/html");
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
             message.setContent(multipart);
