@@ -20,6 +20,9 @@ public class UserRegistrationController {
     @PostMapping("/users")
     public ResponseEntity createUser(HttpServletRequest request) throws MessagingException {
         userRegistrationService userRegistration = new userRegistrationService();
-        return userRegistration.createUser(request);
+        String password = request.getParameter("password");
+        String email= request.getParameter("email");
+        String name= request.getParameter("name");
+        return userRegistration.createUser(password,email,name);
     }
 }
