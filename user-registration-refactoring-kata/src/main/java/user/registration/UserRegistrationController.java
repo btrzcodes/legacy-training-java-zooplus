@@ -26,30 +26,10 @@ public class UserRegistrationController {
 
         try {
             user = validator.register(orm, request);
+            new Email().createEmail(request.getParameter("email"));
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
-
-        Properties prop = new Properties();
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("smtpUsername", "smtpPassword");
-            }
-        });
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("noreply@codium.team"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getParameter("email")));
-        message.setSubject("Welcome to Codium");
-        String msg = "This is the confirmation email";
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-        // If a proper SMTP server is configured, this line could be uncommented
-        // Transport.send(message);
 
         return ResponseEntity.ok(user);
     }

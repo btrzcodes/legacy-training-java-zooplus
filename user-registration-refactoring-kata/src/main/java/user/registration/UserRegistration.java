@@ -16,24 +16,19 @@ public class UserRegistration {
         return user != null;
     }
 
-    private String validate(UserOrmRepository orm, HttpServletRequest request) {
+    private void validate(UserOrmRepository orm, HttpServletRequest request) throws Exception {
         if (isInvalidPassword(request.getParameter("password"))) {
-            return "The password is not valid";
+            throw new Exception("The password is not valid");
         }
 
         if (isInvalidEmail(orm.findByEmail(request.getParameter("email")))) {
-            return "The email is already in use";
+            throw new Exception("The email is already in use");
         }
-
-        return "";
-
     }
 
     public User register(UserOrmRepository orm, HttpServletRequest request) throws Exception {
 
-        String error = validate(orm, request);
-        if(!error.isEmpty())
-            throw new Exception(error);
+        validate(orm, request);
 
         User user = new User(
                 new Random().nextInt(),
