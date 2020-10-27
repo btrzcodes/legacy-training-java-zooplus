@@ -1,19 +1,18 @@
 package user.registration;
 
-import javax.mail.MessagingException;
 import java.util.Random;
 
 public class InsertUserService {
 
     private Repository<User> orm;
-    private EmailService emailService;
+    private EmailServiceInterface emailService;
 
-    public InsertUserService(Repository<User> orm, EmailService emailService) {
+    public InsertUserService(Repository<User> orm, EmailServiceInterface emailService) {
         this.orm = orm;
         this.emailService = emailService;
     }
 
-    public User insertUser(String userName, String email, String password) throws DuplicatedEmailException, InvalidPasswordException, MessagingException {
+    public User insertUser(String userName, String email, String password) throws DuplicatedEmailException, InvalidPasswordException, SendEmailException {
         validateEmail(email);
         validatePassword(password);
         User user = new User(
@@ -24,7 +23,7 @@ public class InsertUserService {
         );
         orm.save(user);
 
-        emailService.sendConfirmationEmail(email);
+        emailService.sendConfirmationEmail("noreply@codium.team", email, "This is the confirmation email", "Welcome to Codium");
 
         return user;
     }

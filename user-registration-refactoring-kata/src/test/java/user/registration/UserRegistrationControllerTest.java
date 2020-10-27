@@ -28,6 +28,7 @@ public class UserRegistrationControllerTest {
     @Before
     public void setup() throws IOException {
         UserRegistrationController.orm = new UserOrmRepository();
+        EmailServiceInterface emailService = new EmailService();
     }
 
     @Test
