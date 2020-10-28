@@ -21,20 +21,9 @@ public class Forecast {
         if (datetime.before(new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 6)))) {
 
             // Find the id of the city on metawheather
-            HttpRequestFactory requestFactory
-                    = new NetHttpTransport().createRequestFactory();
-            HttpRequest request = requestFactory.buildGetRequest(
-                    new GenericUrl("https://www.metaweather.com/api/location/search/?query=" + city));
-            String rawResponse = request.execute().parseAsString();
-            JSONArray jsonArray = new JSONArray(rawResponse);
-            String woeid = jsonArray.getJSONObject(0).get("woeid").toString();
+            String woeid = getId(city);
 
-            // Find the predictions for the city
-            requestFactory = new NetHttpTransport().createRequestFactory();
-            request = requestFactory.buildGetRequest(
-                    new GenericUrl("https://www.metaweather.com/api/location/" + woeid));
-            rawResponse = request.execute().parseAsString();
-            JSONArray results = new JSONObject(rawResponse).getJSONArray("consolidated_weather");
+            JSONArray results = getWeather(woeid);
 
             for (int i = 0; i < results.length(); i++) {
 //            // When the date is the expected
@@ -51,5 +40,27 @@ public class Forecast {
             return "";
         }
         return "";
+    }
+
+    protected JSONArray getWeather(String woeid) throws IOException {
+        String rawResponse;
+        HttpRequest request;
+        HttpRequestFactory requestFactory;
+        // Find the predictions for the city
+        requestFactory = new NetHttpTransport().createRequestFactory();
+        request = requestFactory.buildGetRequest(
+                new GenericUrl("https://www.metaweather.com/api/location/" + woeid));
+        rawResponse = request.execute().parseAsString();
+        return new JSONObject(rawResponse).getJSONArray("consolidated_weather");
+    }
+
+    protected String getId(String city) throws IOException {
+        HttpRequestFactory requestFactory
+                = new NetHttpTransport().createRequestFactory();
+        HttpRequest request = requestFactory.buildGetRequest(
+                new GenericUrl("https://www.metaweather.com/api/location/search/?query=" + city));
+        String rawResponse = request.execute().parseAsString();
+        JSONArray jsonArray = new JSONArray(rawResponse);
+        return jsonArray.getJSONObject(0).get("woeid").toString();
     }
 }
