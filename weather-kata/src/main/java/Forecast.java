@@ -15,30 +15,21 @@ public class Forecast {
         if (datetime == null) {
             datetime = new Date();
         }
-        String format = new SimpleDateFormat("yyyy-MM-dd").format(datetime);
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(datetime);
 
         // If there are predictions
-        if (datetime.before(new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 6)))) {
+        if (datetime.before(getTimeMinusSixDays())) {
 
             // Find the id of the city on metawheather
-            HttpRequestFactory requestFactory
-                    = new NetHttpTransport().createRequestFactory();
-            HttpRequest request = requestFactory.buildGetRequest(
-                    new GenericUrl("https://www.metaweather.com/api/location/search/?query=" + city));
-            String rawResponse = request.execute().parseAsString();
-            JSONArray jsonArray = new JSONArray(rawResponse);
-            String woeid = jsonArray.getJSONObject(0).get("woeid").toString();
+            String woeid = getCityId(city);
 
             // Find the predictions for the city
-            requestFactory = new NetHttpTransport().createRequestFactory();
-            request = requestFactory.buildGetRequest(
-                    new GenericUrl("https://www.metaweather.com/api/location/" + woeid));
-            rawResponse = request.execute().parseAsString();
-            JSONArray results = new JSONObject(rawResponse).getJSONArray("consolidated_weather");
+            JSONArray results = getPredictionsForCity(woeid);
 
             for (int i = 0; i < results.length(); i++) {
 //            // When the date is the expected
-                if (format.equals(results.getJSONObject(i).get("applicable_date").toString())) {
+                System.out.println(formattedDate);
+                if (formattedDate.equals(results.getJSONObject(i).get("applicable_date").toString())) {
 //                // If we have to return the wind information
                     if (wind) {
                         return results.getJSONObject(i).get("wind_speed").toString();
@@ -48,8 +39,35 @@ public class Forecast {
                 }
             }
         } else {
-            return "";
+            return "1";
         }
         return "";
+    }
+
+    protected Date getTimeMinusSixDays() {
+        return new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 6));
+    }
+
+    protected JSONArray getPredictionsForCity(String woeid) throws IOException {
+        HttpRequestFactory requestFactory;
+        HttpRequest request;
+        String rawResponse;
+        requestFactory = new NetHttpTransport().createRequestFactory();
+        request = requestFactory.buildGetRequest(
+                new GenericUrl("https://www.metaweather.com/api/location/" + woeid));
+        rawResponse = request.execute().parseAsString();
+        JSONArray results = new JSONObject(rawResponse).getJSONArray("consolidated_weather");
+        return results;
+    }
+
+    protected String getCityId(String city) throws IOException {
+        HttpRequestFactory requestFactory
+                = new NetHttpTransport().createRequestFactory();
+        HttpRequest request = requestFactory.buildGetRequest(
+                new GenericUrl("https://www.metaweather.com/api/location/search/?query=" + city));
+        String rawResponse = request.execute().parseAsString();
+        JSONArray jsonArray = new JSONArray(rawResponse);
+        String woeid = jsonArray.getJSONObject(0).get("woeid").toString();
+        return woeid;
     }
 }
