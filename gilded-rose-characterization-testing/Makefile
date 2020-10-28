@@ -10,6 +10,7 @@ coverage: test
 
 mutation: test
 	mvn org.pitest:pitest-maven:mutationCoverage
+	@printf "\nOpen the last report on target/pit-reports\n"
 
 docker-build:
 	docker build .. -t codium-legacytraining
