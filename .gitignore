@@ -1,2 +1,6 @@
 .idea
 .m2
+*.iml
+*.class
+target/
+.DS_Store
