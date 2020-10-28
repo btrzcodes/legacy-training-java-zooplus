@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.lang.model.element.QualifiedNameable;
+
 import static java.nio.file.Files.readAllBytes;
 import static org.junit.Assert.assertEquals;
 
@@ -118,6 +120,42 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertEquals(app.items[0].sellIn, sellIn);
+    }
+
+    @Test
+    public void backstage_sellIn_decreases_by_1() {
+        int quality = 40;
+        int sellIn = 10;
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(app.items[0].sellIn, sellIn-1);
+    }
+
+    @Test
+    public void backstage_sellIn_can_be_lower_than_zero() {
+        int quality = 40;
+        int sellIn = 0;
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(app.items[0].sellIn, sellIn-1);
+    }
+
+    @Test
+    public void backstage_quality_increase_by_2() {
+        int quality = 40;
+        int sellIn = 10;
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(app.items[0].quality, quality+2);
     }
 
 }
