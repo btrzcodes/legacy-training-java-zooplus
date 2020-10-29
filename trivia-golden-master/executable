@@ -1,0 +1,1 @@
+make run > current_execution && diff golden_master_seed current_execution.txt
