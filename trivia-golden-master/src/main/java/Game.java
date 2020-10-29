@@ -54,7 +54,7 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (isRollEven(roll)) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -85,6 +85,10 @@ public class Game {
 		
 	}
 
+	private boolean isRollEven(int roll) {
+		return roll % 2 != 0;
+	}
+
 	private void askQuestion() {
 		if (currentCategory() == "Pop")
 			System.out.println(popQuestions.removeFirst());
@@ -98,9 +102,7 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
+		if (places[currentPlayer] == 0 || places[currentPlayer] == 4 || places[currentPlayer] == 8) return "Pop";
 		if (places[currentPlayer] == 1) return "Science";
 		if (places[currentPlayer] == 5) return "Science";
 		if (places[currentPlayer] == 9) return "Science";
