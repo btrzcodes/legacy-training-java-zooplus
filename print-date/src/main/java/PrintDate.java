@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class PrintDate {
 
 	private final Calendar calendar;
@@ -8,7 +10,7 @@ public class PrintDate {
 		this.printer = printer;
 	}
 
-	public void printCurrentDate() {
+	public void printCurrentDate() throws InterruptedException {
 		String line = calendar.today().toString();
 		printer.printLine(line);
 	}
