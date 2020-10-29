@@ -10,8 +10,10 @@ public class GameRunner {
 		aGame.add("Chet");
 		aGame.add("Pat");
 		aGame.add("Sue");
+
+		long seed = 1l;
 		
-		Random rand = new Random();
+		Random rand = new Random(seed);
 	
 		do {
 			
